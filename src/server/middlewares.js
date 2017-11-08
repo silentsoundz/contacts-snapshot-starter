@@ -1,11 +1,11 @@
 const errorHandler = (error, request, response, next) => {
-  response.status(500).send('Something bad happened. This page should be nicer looking');
-};
+  response.status(500).send('Something bad happened. This page should be nicer looking')
+}
 
 const logErrors = (error, request, response, next) => {
   console.error(error.stack)
-  next(error);
-};
+  next(error)
+}
 
 const notFoundHandler = (request, response) => {
   response.status(404).render('common/not_found')
@@ -16,4 +16,8 @@ const setDefaultResponseLocals = (request, response, next) => {
   next()
 }
 
-module.exports = { errorHandler, logErrors, notFoundHandler, setDefaultResponseLocals };
+
+
+module.exports = {
+  errorHandler, logErrors, notFoundHandler, setDefaultResponseLocals
+}
