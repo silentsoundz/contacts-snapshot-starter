@@ -1,15 +1,17 @@
-const users = require("../../models/db/users")
+const users = require("../../models/users")
 const router = require("express").Router()
 const bcrypt = require("bcrypt")
 
 
 router.get("/login", (request, response) => {
-  response.status(200).render("users/login")
+  response.status(200).render("users/login", {
+    errorMsg: ""
+  })
 })
 
 
 router.post("/login", (request, response) => {
-  const session = request.session
+  const { session } = request
   const { email, password } = request.body
   const user = { email, password }
   users
@@ -20,7 +22,7 @@ router.post("/login", (request, response) => {
           errorMsg: "Incorrect email or password"
         })
       } else {
-        bcrypt.compare(password, userData.password)
+        users.comparePasswords(userData, password)
           .then((result) => {
             if (result) {
               session.user = user

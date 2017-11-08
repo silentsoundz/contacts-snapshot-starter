@@ -1,9 +1,8 @@
 const users = require('./db/users')
+const bcrypt = require("bcrypt")
 
-function comparePasswords() {
+const comparePasswords = (user, password) => bcrypt.compare(password, user.password)
 
-}
 
 module.exports = { ...users, comparePasswords }
 
-// module.exports = {users.findValidUser, users.create}
