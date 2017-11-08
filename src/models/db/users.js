@@ -33,7 +33,7 @@ const create = function (email, password) {
 }
 
 const findValidUser = function (email) {
-  return db.one(`SELECT * FROM users
+  return db.oneOrNone(`SELECT * FROM users
       WHERE email = $1`, [email])
 }
 
