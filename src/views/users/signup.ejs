@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign up</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <script type="text/javascript" src="/script.js"></script>
+  </head>
+  <body>
+    <div class="page-column">
+      <%- include ../partials/nav.ejs %>
+      <div class="page-column-content">
+
+<h1>Sign up</h1>
+
+<form method="post" action="/users/signup" class="new-user-form">
+  <pre class="new-user-form-errors"></pre>
+  <label>
+    <span>Email</span>
+    <input type="text" name="email" />
+  </label>
+  <label>
+    <span>Password</span>
+    <input type="text" name="password" />
+  </label>
+  <label>
+    <span>Confirm Password</span>
+    <input type="text" name="confirm-password" />
+  </label>
+  <input type="submit" class="signup-btn" value="SignUp">
+</form>
+
+<%- include ../partials/footer.ejs %>

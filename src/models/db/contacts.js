@@ -1,7 +1,8 @@
 const db = require('./db')
 
-const create = function(contact){
-  return db.query(`
+const create = function (contact) {
+  return db.query(
+    `
     INSERT INTO
       contacts (first_name, last_name)
     VALUES
@@ -11,56 +12,73 @@ const create = function(contact){
     `,
     [
       contact.first_name,
-      contact.last_name,
-    ])
-    .catch(error => {
-      console.error({message: 'Error occurred while executing contacts.create',
-                     arguments: arguments});
+      contact.last_name
+    ]
+  )
+    .catch((error) => {
+      console.error({
+        message: 'Error occurred while executing contacts.create',
+        arguments
+      })
       throw error
-    });
+    })
 }
 
-const findAll = function(){
+const findAll = function () {
   return db.query(`
     SELECT
       *
     FROM
       contacts
     `, [])
-    .catch(error => {
-      console.error({message: 'Error occurred while executing contacts.findAll',
-                     arguments: arguments});
-      throw error});
+    .catch((error) => {
+      console.error({
+        message: 'Error occurred while executing contacts.findAll',
+        arguments
+      })
+      throw error
+    })
 }
 
-const findById = function(contactId){
-  return db.any(`
+const findById = function (contactId) {
+  return db.any(
+    `
     SELECT * FROM contacts WHERE id=$1::int LIMIT 1
     `,
-    [contactId])
-    .then( contacts => contacts[0])
-    .catch(error => {
-      console.error({message: 'Error occurred while executing contacts.findById',
-                     arguments: arguments});
-      throw error});
+    [contactId]
+  )
+    .then(contacts => contacts[0])
+    .catch((error) => {
+      console.error({
+        message: 'Error occurred while executing contacts.findById',
+        arguments
+      })
+      throw error
+    })
 }
 
-const destroy = function(contactId){
-  return db.query(`
+const destroy = function (contactId) {
+  return db.query(
+    `
     DELETE FROM
       contacts
     WHERE
       id=$1::int
     `,
-    [contactId])
-    .catch(error => {
-      console.error({message: 'Error occurred while executing contacts.destroy',
-                     arguments: arguments});
-      throw error});
+    [contactId]
+  )
+    .catch((error) => {
+      console.error({
+        message: 'Error occurred while executing contacts.destroy',
+        arguments
+      })
+      throw error
+    })
 }
 
-const search = function(searchQuery){
-  return db.query(`
+const search = function (searchQuery) {
+  return db.query(
+    `
     SELECT
       *
     FROM
@@ -68,11 +86,15 @@ const search = function(searchQuery){
     WHERE
       lower(first_name || ' ' || last_name) LIKE $1::text
     `,
-    [`%${searchQuery.toLowerCase().replace(/\s+/,'%')}%`])
-    .catch(error => {
-      console.error({message: 'Error occurred while executing contacts.search',
-                     arguments: arguments});
-      throw error});
+    [`%${searchQuery.toLowerCase().replace(/\s+/, '%')}%`]
+  )
+    .catch((error) => {
+      console.error({
+        message: 'Error occurred while executing contacts.search',
+        arguments
+      })
+      throw error
+    })
 }
 
 module.exports = {
