@@ -17,7 +17,6 @@ const setDefaultResponseLocals = (request, response, next) => {
 }
 
 
-
 module.exports = {
   errorHandler, logErrors, notFoundHandler, setDefaultResponseLocals
 }
