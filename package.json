@@ -11,6 +11,9 @@
     "load_contacts": "psql -d contacts_development < test/seed/contacts.sql",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": ">=8.6"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
