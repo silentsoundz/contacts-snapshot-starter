@@ -13,6 +13,14 @@ const notFoundHandler = (request, response) => {
 
 const setDefaultResponseLocals = (request, response, next) => {
   response.locals.query = ''
+  response.locals.errorMessage = undefined
+
+  if (response.locals.session) {
+    response.locals.session = true
+  } else {
+    response.locals.session = false
+  }
+
   next()
 }
 
