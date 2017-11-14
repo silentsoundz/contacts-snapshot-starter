@@ -5,15 +5,12 @@ const authRoutes = require('./auth')
 const middlewares = require('../middlewares')
 
 router.get('/', (request, response, next) => {
-  if (request.session.user) {
-    console.log(request.session.user)
-    contacts.findAll()
-      .then((contacts) => { response.render('contacts/index', { contacts }) })
-      .catch(error => next(error))
-  }
-  // else {
-  //   response.redirect('/users/')
-  // }
+  response.render('contacts/splash')
+})
+
+router.get('/logout', (request, response) => {
+  request.session.destroy(err => console.log)
+  response.redirect('/users/login')
 })
 
 router.use('/contacts', contactsRoutes)

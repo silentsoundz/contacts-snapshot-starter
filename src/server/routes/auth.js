@@ -2,7 +2,6 @@ const users = require("../../models/users")
 const router = require("express").Router()
 const bcrypt = require("bcrypt")
 
-
 router.get("/login", (request, response) => {
   response.status(200).render("users/login", {
     errorMsg: ""
@@ -22,11 +21,11 @@ router.post("/login", (request, response) => {
           errorMsg: "Incorrect email or password"
         })
       } else {
-        users.comparePasswords(userData, password)
+        users.comparePasswords(password, userData)
           .then((result) => {
             if (result) {
-              session.user = user
-              response.status(200).redirect('/')
+              session.user = userData
+              response.status(200).redirect('/contacts')
             } else {
               response.render("users/login", {
                 errorMsg: "Incorrect email or password"
@@ -42,10 +41,10 @@ router.get("/signup", (request, response) => {
 })
 
 router.post("/signup", (request, response) => {
-  const session = request.session
+  const { session } = request
   const { email, password, role } = request.body
-  session.email = request.body.email
-  session.role = request.body.role
+  session.email = email
+  session.role = role
   const saltRounds = 10
   bcrypt
     .hash(password, saltRounds)
@@ -53,7 +52,7 @@ router.post("/signup", (request, response) => {
       users.create(email, hash)
     })
     .then((userProfile) => {
-      response.redirect("/")
+      response.redirect("/contacts")
     })
     .catch(error => next(error))
 })
