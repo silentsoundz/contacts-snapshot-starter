@@ -1,22 +1,21 @@
 const contacts = require('../../models/contacts')
-const userHasAccess = require('./roles')
+const { userHasAccess } = require('./roles')
 const router = require('express').Router()
 const { renderError, renderUnauthorized } = require('../utils')
 const { isLoggedIn } = require('../middlewares')
 
 router.get('/', isLoggedIn, (request, response, next) => {
-  console.log("any string");
   contacts.findAll()
-    .then((contacts) => { response.render('contacts/index', { contacts }) })
+    .then((contact) => { response.render('contacts/index', { contact }) })
     .catch(error => next(error))
 })
 
 
-router.get('/search',(request, response, next) => {
+router.get('/search', (request, response, next) => {
   const query = request.query.q
   contacts.search(query)
-    .then(function (contacts) {
-      if (contacts) return response.render('contacts/index', { query, contacts })
+    .then(function (contact) {
+      if (contact) return response.render('contacts/index', { query, contact })
       next()
     })
     .catch(error => next(error))
@@ -38,9 +37,11 @@ router.get('/new', isLoggedIn, (request, response) => {
 })
 
 router.post('/', (request, response, next) => {
-  const { user } = request
-  console.log(request.session)
+  const { user } = request.session
+  console.log("this is to create contact", request.session)
+  console.log("are we here yet", request.session.user)
   const action = 'createContact'
+  console.log(userHasAccess(user, action))
   if (userHasAccess(user, action)) {
     contacts.create(request.body)
       .then(function (contact) {

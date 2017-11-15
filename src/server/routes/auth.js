@@ -20,19 +20,23 @@ router.post("/login", (request, response) => {
         response.render("users/login", {
           errorMsg: "Incorrect email or password"
         })
-      } else {
-        users.comparePasswords(password, userData)
-          .then((result) => {
-            if (result) {
-              session.user = userData
-              response.status(200).redirect('/contacts')
-            } else {
-              response.render("users/login", {
-                errorMsg: "Incorrect email or password"
-              })
-            }
-          })
       }
+      return userData
+    })
+    .then((userData) => {
+      users.comparePasswords(password, userData)
+        .then((result) => {
+          if (result) {
+            session.user = userData
+            response.status(200).redirect('/contacts')
+          }
+          response.render("users/login", {
+            errorMsg: "Incorrect email or password"
+          })
+        })
+    })
+    .catch((error) => {
+      console.log("this is a bad one", error)
     })
 })
 
