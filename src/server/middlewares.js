@@ -25,7 +25,6 @@ const setDefaultResponseLocals = (request, response, next) => {
 }
 
 const isLoggedIn = (request, response, next) => {
-  console.log("checking test test")
   if (!request.session.user) {
     response.redirect('/users/login')
   } else {
