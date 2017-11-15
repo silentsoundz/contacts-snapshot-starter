@@ -2,19 +2,17 @@ const contacts = require('../../models/contacts')
 const userHasAccess = require('./roles')
 const router = require('express').Router()
 const { renderError, renderUnauthorized } = require('../utils')
+const { isLoggedIn } = require('../middlewares')
 
-router.get('/', (request, response, next) => {
-  if (!request.session.user.email) {
-    response.redirect('/users/login')
-  } else {
-    contacts.findAll()
-      .then((contacts) => { response.render('contacts/index', { contacts }) })
-      .catch(error => next(error))
-  }
+router.get('/', isLoggedIn, (request, response, next) => {
+  console.log("any string");
+  contacts.findAll()
+    .then((contacts) => { response.render('contacts/index', { contacts }) })
+    .catch(error => next(error))
 })
 
 
-router.get('/search', (request, response, next) => {
+router.get('/search',(request, response, next) => {
   const query = request.query.q
   contacts.search(query)
     .then(function (contacts) {
@@ -35,7 +33,7 @@ router.get('/:contactId', (request, response, next) => {
     .catch(error => next(error))
 })
 
-router.get('/new', (request, response) => {
+router.get('/new', isLoggedIn, (request, response) => {
   response.render('contacts/new')
 })
 
