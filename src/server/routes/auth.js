@@ -3,9 +3,7 @@ const router = require("express").Router()
 const bcrypt = require("bcrypt")
 
 router.get("/login", (request, response) => {
-  response.status(200).render("users/login", {
-    errorMsg: "You are not signed up."
-  })
+  response.status(200).render("users/login", { errorMsg: "" })
 })
 
 
@@ -29,10 +27,13 @@ router.post("/login", (request, response) => {
           if (result) {
             session.user = userData
             response.status(200).redirect('/contacts')
+          } else {
+            console.log("this is wrong")
+            response.render("users/login", {
+              errorMsg: "Incorrect email or password"
+            })
           }
-          response.render("users/login", {
-            errorMsg: "Incorrect email or password"
-          })
+
         })
     })
     .catch((error) => {
