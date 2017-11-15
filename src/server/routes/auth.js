@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 
 router.get("/login", (request, response) => {
   response.status(200).render("users/login", {
-    errorMsg: ""
+    errorMsg: "You are not signed up."
   })
 })
 

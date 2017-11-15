@@ -24,7 +24,15 @@ const setDefaultResponseLocals = (request, response, next) => {
   next()
 }
 
+const isLoggedIn = (request, response, next) => {
+  console.log("checking test test")
+  if (!request.session.user) {
+    response.redirect('/users/login')
+  } else {
+    next()
+  }
+}
 
 module.exports = {
-  errorHandler, logErrors, notFoundHandler, setDefaultResponseLocals
+  errorHandler, logErrors, notFoundHandler, setDefaultResponseLocals, isLoggedIn
 }
