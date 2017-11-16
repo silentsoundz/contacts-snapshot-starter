@@ -17,7 +17,7 @@ const create = function (contact) {
   )
     .catch((error) => {
       console.error({
-        message: 'Error occurred while executing contacts.create',
+        message: 'Error occurred while executing users.create',
         arguments
       })
       throw error
