@@ -42,6 +42,7 @@ router.get('/new', (request, response) => {
 })
 
 router.post('/', (request, response, next) => {
+  console.log("this is whack")
   const { user } = request.session
   const action = 'createContact'
   console.log(userHasAccess(user, action))

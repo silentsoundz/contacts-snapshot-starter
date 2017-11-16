@@ -45,21 +45,29 @@ router.get("/signup", (request, response) => {
   response.status(200).render("users/signup")
 })
 
-router.post("/signup", (request, response) => {
+router.post("/signup", (request, response, next) => {
   const { session } = request
   const { email, password, role } = request.body
   session.email = email
   session.role = role
-  const saltRounds = 10
-  bcrypt
-    .hash(password, saltRounds)
-    .then((hash) => {
-      users.create(email, hash)
-    })
-    .then((userProfile) => {
-      response.redirect("/contacts")
+  users.findValidUser(email)
+    .then((user) => {
+      if (user.length === 0) {
+        const saltRounds = 10
+        bcrypt
+          .hash(password, saltRounds)
+          .then((hash) => {
+            users.create(email, hash)
+          })
+          .then((userProfile) => {
+            response.redirect("/contacts")
+          })
+      } else {
+        response.render("users/login", { errorMsg: "User already exist" })
+      }
     })
     .catch(error => next(error))
 })
+
 
 module.exports = router
