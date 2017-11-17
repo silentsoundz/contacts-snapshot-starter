@@ -17,17 +17,19 @@
   <pre class="new-user-form-errors"></pre>
   <label>
     <span>Email</span>
-    <input type="text" name="email" value="a@aol.com" />
   </label>
+  <input type="text" name="email"/><br>
   <label>
     <span>Password</span>
-    <input type="text" name="password" value="a" />
   </label>
+  <input type="text" name="password"/><br>
   <label>
     <span>Confirm Password</span>
-    <input type="text" name="confirm-password"  value="a"/>
   </label>
+  <input type="text" name="confirm-password"/><br>
   <input type="submit" class="signup-btn" value="SignUp">
 </form>
+<div class="login-redirect">If you are already a member<a href="/users/login"><button class="login">Login</button></a>
+</div>
 
 <%- include ../partials/footer.ejs %>
