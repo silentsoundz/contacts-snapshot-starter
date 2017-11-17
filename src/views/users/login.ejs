@@ -10,7 +10,6 @@
     <div class="page-column">
     <%- include ../partials/nav.ejs %>
       <div class="page-column-content">
-
   <h1>Login Page</h1>
   <form method="post" action="/users/login" class="existing-user-form">
     <pre class="existing-user-form-errors"></pre>
@@ -24,5 +23,7 @@
     </label>
     <input type="submit" value="Login">
   </form>
+  <div class="signup-redirect">If you are not a member<a href="/users/signup"><button class="signup">Signup</button></a>
+  </div>
   <h1><%- errorMsg %></h1>
 <%- include ../partials/footer.ejs %>

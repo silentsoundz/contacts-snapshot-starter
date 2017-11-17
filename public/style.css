@@ -37,6 +37,38 @@ nav .search-form input {
   padding: 0.3em 0.5em;
 }
 
+.welcome {
+  display: flex;
+  justify-content: center;
+}
+.member-entry {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 60px;
+}
+
+.signup-redirect {
+align-items: center;
+display: flex;
+justify-content: space-evenly;
+padding-top: 60px;
+}
+
+.new-user-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.login-redirect {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 60px;
+}
+
 
 .page-column {
   width: 700px;
